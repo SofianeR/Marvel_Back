@@ -8,4 +8,8 @@
     "express-formidable": "^1.2.0",
     "mongoose": "^6.3.3"
   }
+  "scripts": {
+    "start": "node index.js",
+    "server":"nodemon index.js"
+  }
 }
