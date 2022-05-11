@@ -7,9 +7,9 @@
     "express": "^4.18.1",
     "express-formidable": "^1.2.0",
     "mongoose": "^6.3.3"
-  }
+  },
   "scripts": {
-    "start": "yarn start index.js",
+    "start": "node index.js",
     "server":"nodemon index.js"
   }
 }
