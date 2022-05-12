@@ -91,7 +91,7 @@ router.post("/user/favoris", async (req, res) => {
 
         for (let i = 0; i < arrayClient.length; i++) {
           if (arrayClient.indexOf(arrayClient[i].characterId) === -1) {
-            copy.push(arrayClient[i].characterId);
+            copy.push(arrayClient[i]);
           }
         }
         findUser.favoris = copy;
