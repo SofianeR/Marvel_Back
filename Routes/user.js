@@ -21,7 +21,9 @@ router.post("/user/signup", async (req, res) => {
       !req.fields.username.length < 3 ||
       !req.fields.password < 3
     ) {
-      const checkForMail = await User.findOne({ email: req.fields.email });
+      const checkForMail = await User.findOne({
+        email: req.fields.email.toLowerCase(),
+      });
       if (!checkForMail) {
         const token = uid2(24);
         const salt = uid2(24);
@@ -49,7 +51,9 @@ router.post("/user/signup", async (req, res) => {
 
 router.post("/user/login", async (req, res) => {
   try {
-    const checkForUser = await User.findOne({ email: req.fields.email });
+    const checkForUser = await User.findOne({
+      email: req.fields.email.toLowerCase(),
+    });
     if (checkForUser) {
       const hashToCheck = SHA256(
         req.fields.password + checkForUser.salt
