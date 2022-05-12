@@ -16,11 +16,14 @@ app.use(comicsRoutes);
 const charactersRoutes = require("./Routes/characters.js");
 app.use(charactersRoutes);
 
+const userRoutes = require("./Routes/user");
+app.use(userRoutes);
+
 app.get("*", (req, res) => {
   res.status(400).json("Page introuvable");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = 4000;
 
 app.listen(PORT, () => {
   console.log("Server launched 🚀");
