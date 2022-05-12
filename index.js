@@ -23,7 +23,7 @@ app.get("*", (req, res) => {
   res.status(400).json("Page introuvable");
 });
 
-const PORT = 4000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log("Server launched 🚀");
