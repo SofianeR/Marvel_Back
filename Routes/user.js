@@ -61,6 +61,7 @@ router.post("/user/login", async (req, res) => {
           username: checkForUser.username,
           token: checkForUser.token,
           _id: checkForUser._id,
+          favoris: checkForUser.favoris,
         });
       } else {
         res.status(400).json({ message: "Erreur identifiant" });
@@ -80,23 +81,20 @@ router.post("/user/favoris", async (req, res) => {
     const findUser = await User.findOne({ token: clientToken });
     if (findUser) {
       if (req.fields.favoris) {
-        if (findUser.favoris) {
-          const copy = [...findUser.favoris];
+        const copy = [...findUser.favoris];
 
-          const arrayClient = req.fields.favoris;
+        const arrayClient = JSON.parse(req.fields.favoris);
 
-          for (let i = 0; i < arrayClient.length; i++) {
-            if (req.fields.favoris[i] !== ",") {
-              copy.push(req.fields.favoris[i]);
-            }
+        for (let i = 0; i < arrayClient.length; i++) {
+          if (arrayClient.indexOf(arrayClient[i].characterId) === -1) {
+            copy.push(arrayClient[i].characterId);
           }
-
-          findUser.favoris = copy;
-
-          await findUser.save();
-
-          res.json(findUser);
         }
+        findUser.favoris = copy;
+
+        await findUser.save();
+
+        res.json(req.fields.favoris);
       } else {
         res.status(400).json({ message: "nothing to add" });
       }
