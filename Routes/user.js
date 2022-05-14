@@ -84,7 +84,24 @@ router.post("/user/favoris", async (req, res) => {
 
     const findUser = await User.findOne({ token: clientToken });
     if (findUser) {
-      if (req.fields.favoris) {
+      if (req.fields.delete) {
+        console.log(req.fields);
+
+        const copy = [];
+
+        const arrayClient = JSON.parse(req.fields.favoris);
+
+        for (let i = 0; i < arrayClient.length; i++) {
+          if (arrayClient.indexOf(arrayClient[i].characterId) === -1) {
+            copy.push(arrayClient[i]);
+          }
+        }
+        findUser.favoris = copy;
+
+        await findUser.save();
+
+        res.json(req.fields.favoris);
+      } else if (req.fields.favoris) {
         const copy = [...findUser.favoris];
 
         const arrayClient = JSON.parse(req.fields.favoris);
